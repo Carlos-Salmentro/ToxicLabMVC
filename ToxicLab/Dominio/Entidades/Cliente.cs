@@ -17,10 +17,10 @@ namespace ToxicLab.Dominio.Entidades
         public string Nome { get; set; }
         [Column("data_nascimento")]
         [Required]
-        public DateTime Nascimento { get; set; }
+        public DateOnly Nascimento { get; set; }
         [Column("endereco")]
         [Required]
-        public string Endereco { get; set;}
+        public Endereco Endereco { get; set;}
         [Column("rg")]
         [Required]
         public string Rg { get; set; }
@@ -32,7 +32,7 @@ namespace ToxicLab.Dominio.Entidades
         public string Cnh { get; set; }
         [Column("vencimento_cnh")]
         [Required]
-        public DateTime VencimentoCnh { get; set; }
+        public DateOnly VencimentoCnh { get; set; }
         [Column("whatsapp")]
         [Required]
         public string WhatsApp { get; set; }
@@ -41,7 +41,7 @@ namespace ToxicLab.Dominio.Entidades
         public string Email { get; set; }
         
 
-        public Cliente(string nome, DateTime nascimento, string endereco, string rg, string cpf, string cnh, DateTime vencimentoCnh, string whatsApp, string email)
+        public Cliente(string nome, DateOnly nascimento, Endereco endereco, string rg, string cpf, string cnh, DateOnly vencimentoCnh, string whatsApp, string email)
         {
             Nome = nome;
             Nascimento = nascimento;

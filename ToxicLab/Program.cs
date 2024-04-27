@@ -13,6 +13,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(stringDeConexao, ServerVersion.AutoDetect(stringDeConexao));
 });
 
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

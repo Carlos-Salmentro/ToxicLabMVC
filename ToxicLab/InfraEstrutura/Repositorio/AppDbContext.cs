@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Pomelo.EntityFrameworkCore;
+using ToxicLab.Dominio.Entidades;
 
 namespace ToxicLab.InfraEstrutura.Repositorio
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-            
-        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Dominio.Entidades.Cliente> Clientes { get; set; }
-        public DbSet<Dominio.Entidades.Exame> Exames { get; set; }
+        public DbSet<Cliente> clientes { get; set; }
+        public DbSet<Endereco> enderecos { get; set; }
+        public DbSet<Exame> exames { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
