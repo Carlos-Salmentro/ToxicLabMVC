@@ -13,7 +13,7 @@ namespace ToxicLab.Dominio.Entidades
         public int Id { get; set; }
         [ForeignKey("cliente_id")]
         [Required]
-        public int Cliente_Id { get; set; }
+        public int ClienteId { get; set; }
         [Column("data_realizado")]
         [Required]
         public DateOnly DataRealizado { get; set; }
@@ -29,9 +29,9 @@ namespace ToxicLab.Dominio.Entidades
 
         public Exame() { }
         
-        public Exame(int cliente_Id, DateOnly dataRealizado, DateOnly dataVencimento, MotivoExame motivoExame, bool ativo)
+        public Exame(int clienteId, DateOnly dataRealizado, DateOnly dataVencimento, MotivoExame motivoExame, bool ativo)
         {
-            Cliente_Id = cliente_Id;
+            ClienteId = clienteId;
             DataRealizado = dataRealizado;
             DataVencimento = dataVencimento;
             MotivoExame = motivoExame;

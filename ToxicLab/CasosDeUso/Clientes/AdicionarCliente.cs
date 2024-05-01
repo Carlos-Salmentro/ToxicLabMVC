@@ -19,12 +19,12 @@ namespace ToxicLab.CasosDeUso.Clientes
         public string Email { get; set; }
     }
 
-    public class AdicionarClienteHandle
+    public class AdicionarClienteHandler
     {
         private AppDbContext _context;
         private TesteCpf _testeCpf;
 
-        public AdicionarClienteHandle(AppDbContext context, TesteCpf testeCpf)
+        public AdicionarClienteHandler(AppDbContext context, TesteCpf testeCpf)
         {
             _context = context;
             _testeCpf = testeCpf;

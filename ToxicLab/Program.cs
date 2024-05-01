@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ToxicLab.Controllers.ClienteControllers;
 using ToxicLab.InfraEstrutura.Repositorio;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//*** como mapear os EndPoints? ***
 app.UseStaticFiles();
 
 app.UseRouting();
