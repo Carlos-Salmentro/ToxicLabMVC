@@ -17,25 +17,24 @@ namespace ToxicLab.CasosDeUso.Clientes
         public DateOnly VencimentoCnh { get; set; }
         public string WhatsApp { get; set; }
         public string Email { get; set; }
+        public DateOnly DataNotificacao { get; set; }
+        public bool Ativo { get; set; }
     }
 
     public class AdicionarClienteHandler
     {
         private AppDbContext _context;
-        private TesteCpf _testeCpf;
 
-        public AdicionarClienteHandler(AppDbContext context, TesteCpf testeCpf)
+        public AdicionarClienteHandler(AppDbContext context)
         {
             _context = context;
-            _testeCpf = testeCpf;
         }
-
 
 
         public async Task<AdicionarClienteResponse> Handle(AdicionarClienteRequest request)
         {
             Cliente cliente = new Cliente(request.Nome, request.Nascimento, request.Endereco, request.Rg, request.Cpf, request.Cnh, request.VencimentoCnh,
-            request.WhatsApp, request.Email);
+            request.WhatsApp, request.Email, request.DataNotificacao, request.Ativo);
 
             await _context.clientes.AddAsync(cliente);
             await _context.SaveChangesAsync();
@@ -60,7 +59,8 @@ namespace ToxicLab.CasosDeUso.Clientes
     {
         public AdicionarClienteRequestValidador()
         {
-            RuleFor(x => x.Nome).NotEmpty().NotNull().MinimumLength(8).MaximumLength(100).WithMessage("O nome é obrigatório.");
+            RuleFor(x => x.Nome).NotEmpty().NotNull().WithMessage("O nome é obrigatório.");
+            RuleFor(x => x.Nome).MinimumLength(8).MaximumLength(100).WithMessage("O nome precisa ser ter entre 8 e 100 caracteres.");
             RuleFor(x => x.Nascimento).NotEmpty().NotNull().WithMessage("Preencha a data de nascimento");
             RuleFor(x => x.Email).EmailAddress().NotEmpty().NotNull().WithMessage("O E-mail deve ser válido.");
 

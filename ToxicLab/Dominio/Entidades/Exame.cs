@@ -11,6 +11,7 @@ namespace ToxicLab.Dominio.Entidades
         [Required]
         [Column("id")]
         public int Id { get; set; }
+        [Column("cliente_id")]
         [ForeignKey("cliente_id")]
         [Required]
         public int ClienteId { get; set; }

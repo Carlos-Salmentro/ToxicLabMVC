@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ToxicLab.Dominio.Enums;
 
@@ -39,9 +40,14 @@ namespace ToxicLab.Dominio.Entidades
         [Column("email")]
         [Required]
         public string Email { get; set; }
-        
+        [Column("data_notificacao")]
+        [Required]
+        public DateOnly DataNotificacao { get; set ; }
+        [Column("ativo")]
+        [Required]
+        public bool Ativo { get; set; }
 
-        public Cliente(string nome, DateOnly nascimento, Endereco endereco, string rg, string cpf, string cnh, DateOnly vencimentoCnh, string whatsApp, string email)
+        public Cliente(string nome, DateOnly nascimento, Endereco endereco, string rg, string cpf, string cnh, DateOnly vencimentoCnh, string whatsApp, string email, DateOnly dataNotificacao, bool ativo)
         {
             Nome = nome;
             Nascimento = nascimento;
@@ -52,8 +58,22 @@ namespace ToxicLab.Dominio.Entidades
             VencimentoCnh = vencimentoCnh;
             WhatsApp = whatsApp;
             Email = email;
+            Ativo = ativo;
+
+            if (dataNotificacao != null)
+            {
+                DataNotificacao = DataNotificacao;
+            }
+            else
+            {
+                DateTime now = DateTime.Now;
+
+                DataNotificacao = DateOnly.Parse(now.ToString());
+            }
         }
 
         public Cliente() { }
+
+      
     }
 }
