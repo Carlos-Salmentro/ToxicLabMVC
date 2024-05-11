@@ -62,7 +62,7 @@ namespace ToxicLab.Dominio.Entidades
 
             if (dataNotificacao != null)
             {
-                DataNotificacao = DataNotificacao;
+                DataNotificacao = dataNotificacao;
             }
             else
             {

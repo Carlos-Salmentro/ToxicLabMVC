@@ -3,21 +3,22 @@ using ToxicLab.Dominio.Entidades;
 using ToxicLab.InfraEstrutura.Repositorio;
 using ToxicLab.Validadores;
 using FluentValidation;
+using System.Globalization;
 
 namespace ToxicLab.CasosDeUso.Clientes
 {
     public class AdicionarClienteRequest
     {
         public string Nome { get; set; }
-        public DateOnly Nascimento { get; set; }
+        public string Nascimento { get; set; } //Alterado de DateOnly para string - Conversao no construtor
         public Endereco Endereco { get; set; }
         public string Rg { get; set; }
         public string Cpf { get; set; }
         public string Cnh { get; set; }
-        public DateOnly VencimentoCnh { get; set; }
+        public string VencimentoCnh { get; set; } //Alterado de DateOnly para string - Conversao no construtor
         public string WhatsApp { get; set; }
         public string Email { get; set; }
-        public DateOnly DataNotificacao { get; set; }
+        public string DataNotificacao { get; set; } //Alterado de DateOnly para string - Conversao no construtor
         public bool Ativo { get; set; }
     }
 
@@ -33,8 +34,8 @@ namespace ToxicLab.CasosDeUso.Clientes
 
         public async Task<AdicionarClienteResponse> Handle(AdicionarClienteRequest request)
         {
-            Cliente cliente = new Cliente(request.Nome, request.Nascimento, request.Endereco, request.Rg, request.Cpf, request.Cnh, request.VencimentoCnh,
-            request.WhatsApp, request.Email, request.DataNotificacao, request.Ativo);
+            Cliente cliente = new Cliente(request.Nome, DateOnly.ParseExact(request.Nascimento, "yyyy-MM-dd"), request.Endereco, request.Rg, request.Cpf, request.Cnh, DateOnly.ParseExact(request.VencimentoCnh, "yyyy-MM-dd"),
+            request.WhatsApp, request.Email, DateOnly.ParseExact(request.DataNotificacao, "yyyy-MM-dd"), request.Ativo);
 
             await _context.clientes.AddAsync(cliente);
             await _context.SaveChangesAsync();

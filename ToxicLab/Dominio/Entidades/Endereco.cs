@@ -17,7 +17,7 @@ namespace ToxicLab.Dominio.Entidades
         public int ClienteId { get; set; }
         [Required]
         [Column("tipo_logradouro")]
-        public TiposLogradouro TiposLogradouro { get; set; }
+        public TiposLogradouro TipoLogradouro { get; set; }
         [Required]
         [Column("logradouro")]
         public string Logradouro { get; set; }
@@ -26,7 +26,7 @@ namespace ToxicLab.Dominio.Entidades
         public string Numero { get; set; }
         [Required]
         [Column("complemento")]
-        public string Complemento { get; set; }
+        public string? Complemento { get; set; }
         [Required]
         [Column("cep")]
         public string Cep { get; set; }
@@ -36,9 +36,9 @@ namespace ToxicLab.Dominio.Entidades
 
         public Endereco() { }
 
-        public Endereco(TiposLogradouro tiposLogradouro, string logradouro, string numero, string complemento, string cep, string bairro)
+        public Endereco(TiposLogradouro tipoLogradouro, string logradouro, string numero, string? complemento, string cep, string bairro)
         {
-            TiposLogradouro = tiposLogradouro;
+            TipoLogradouro = tipoLogradouro;
             Logradouro = logradouro;
             Numero = numero;
             Complemento = complemento;

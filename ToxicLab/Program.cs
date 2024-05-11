@@ -1,11 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using ToxicLab.Controllers.ClienteControllers;
+using ToxicLab.CasosDeUso.Clientes;
 using ToxicLab.InfraEstrutura.Repositorio;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+
+//Para trabalhar com controllers
+builder.Services.AddControllers();
+
+builder.Services.AddScoped<AdicionarClienteHandler>();
+builder.Services.AddScoped<DeletarClienteHandler>();
+builder.Services.AddScoped<MostrarClientesHandler>();
+builder.Services.AddScoped<BuscarClientePorIdHandler>();
 
 // Add banco de dados como serviço.
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -13,9 +19,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     var stringDeConexao = builder.Configuration.GetConnectionString("ToxicLabString");
     options.UseMySql(stringDeConexao, ServerVersion.AutoDetect(stringDeConexao));
 });
-
-
-
 
 var app = builder.Build();
 
@@ -34,8 +37,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//app.UseAuthentication(); //add tentando solucionar falta de certificado
 app.UseAuthorization();
 
-app.MapRazorPages();
+
+//para trabalhar com controllers
+app.MapControllers();
 
 app.Run();
