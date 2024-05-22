@@ -9,8 +9,8 @@ namespace ToxicLab.CasosDeUso.Exames
         public class AdicionarExameRequest
         {
             public int ClienteId { get; set; }
-            public DateOnly DataRealizado { get; set; }
-            public DateOnly DataVencimento { get; set; }
+            public DateTime DataRealizado { get; set; }
+            public DateTime DataVencimento { get; set; }
             public MotivoExame MotivoExame { get; set; }
             public bool Ativo { get; set; }
         }

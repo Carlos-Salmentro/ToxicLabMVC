@@ -20,25 +20,17 @@ namespace ToxicLab.CasosDeUso.Clientes
             this.dbConexao = new MySqlConnection(configuration.GetConnectionString("ToxicLabString"));
         }
 
-        //Perguntar como transformar em async e List
         public async Task<List<MostrarClientesResponse>> Handle()
         {
             var aux = await dbConexao.QueryAsync<MostrarClientesResponse>(
-                @"SELECT c.id AS 'IdCliente', c.nome AS 'NomeCliente', timestampdiff(YEAR, c.data_nascimento, CURDATE()) AS 'Idade', c.vencimento_cnh AS 'VencimentoCnh', c.whatsapp AS 'WhatsApp', c.data_notificacao AS 'DataNotificacao',
+                @"SELECT c.id AS 'IdCliente', c.nome AS 'NomeCliente', timestampdiff(YEAR, c.data_nascimento, CURDATE()) AS 'Idade', c.vencimento_cnh AS 'VencimentoCnh', c.whatsapp AS 'WhatsApp', c.data_notificacao AS 'DataNotificacao', c.ativo AS 'Ativo',
                 e.data_vencimento AS 'VencimentoExame', e.ativo AS 'Ativo'
                 FROM toxiclab.clientes AS c
                 INNER JOIN toxiclab.exames AS e ON e.cliente_id = c.id
-                WHERE c.ativo = true");
+                WHERE c.ativo = true AND e.ativo = true");
 
-            //var aux = await dbConexao.QueryAsync<MostrarClientesResponse>(
-            //    @"SELECT c.id AS 'IdCliente', c.nome AS 'NomeCliente', timestampdiff(YEAR, c.data_nascimento, CURDATE()) AS 'Idade', c.vencimento_cnh AS 'VencimentoCnh', c.whatsapp AS 'WhatsApp', c.data_notificacao AS 'UltimaNotificacao',
-            //    e.data_vencimento AS 'VencimentoExame', e.ativo AS 'Ativo'
-            //    FROM toxiclab.clientes AS c
-            //    INNER JOIN toxiclab.exames AS e ON e.cliente_id = c.id
-            //    WHERE c.ativo = true AND e.ativo = true AND datediff(NOW(), c.data_notificacao) > 30 AND(datediff(c.vencimento_cnh, NOW()) < 30 OR datediff(e.data_vencimento, NOW()) < 30)
-            //    ORDER BY e.data_vencimento;");
 
-            List<MostrarClientesResponse> response= aux.ToList();
+            List<MostrarClientesResponse> response = aux.ToList();
 
             return response;
         }

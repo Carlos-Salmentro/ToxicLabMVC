@@ -3,6 +3,8 @@ using ToxicLab.Dominio.Entidades;
 using ToxicLab.InfraEstrutura.Repositorio;
 using Dapper;
 using Microsoft.AspNetCore.Routing.Template;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace ToxicLab.CasosDeUso.Clientes
 {
@@ -16,51 +18,64 @@ namespace ToxicLab.CasosDeUso.Clientes
         //private readonly AppDbContext _context;
         private readonly MySqlConnection _dbConnection;
 
-        public BuscarClientePorIdHandler(/*AppDbContext context,*/ IConfiguration configuration)
+        public BuscarClientePorIdHandler(IConfiguration configuration)
         {
-            //this._context = context;
             this._dbConnection = new MySqlConnection(configuration.GetConnectionString("ToxicLabString"));
 
         }
 
-        public async Task<List<BuscarClientePorIdResponse>> Handle(int id)
+        public async Task<BuscarClientePorIdResponse> Handle(int id)
         {
 
-            string query = @"SELECT c.nome AS Nome, c.data_nascimento AS DataNascimento, c.rg AS Rg, c.cpf AS Cpf, c.cnh AS Cnh, c.vencimento_cnh AS VencimentoCnh,
-                c.whatsapp AS WhatsApp, c.email AS Email, c.data_notificacao AS UltimaNotificacao, c.ativo AS Ativo
-                FROM toxiclab.clientes AS c
+            string query = @"SELECT c.id AS Id, c.nome AS Nome, c.data_nascimento AS DataNascimento, c.numero_custodia AS NumeroCustodia, c.cpf AS Cpf, c.cnh AS Cnh, c.vencimento_cnh AS VencimentoCnh,
+                c.whatsapp AS WhatsApp, c.email AS Email, c.data_notificacao AS UltimaNotificacao, c.ativo AS Ativo, e.id AS EnderecoId, e.tipo_logradouro AS TipoLogradouro, e.logradouro AS Logradouro, e.numero AS Numero, e.complemento AS Complemento, e.cep AS Cep, e.bairro AS Bairro
+                FROM toxiclab.clientes AS c, toxiclab.enderecos AS e
+                INNER JOIN toxiclab.enderecos ON enderecos.cliente_id = @identificador
                 WHERE c.id = @identificador";
+
+            string query2 = @"SELECT e.id AS Id, e.cliente_id AS ClienteId, e.data_realizado AS DataRealizado, e.data_vencimento AS DataVencimento, e.motivo_exame AS MotivoExame
+                            FROM toxiclab.exames AS e
+                            WHERE e.cliente_id = @identificador ";
+
             
-            var aux = await _dbConnection.QueryAsync<BuscarClientePorIdResponse>(query, new {identificador = id });
 
-            //var aux = await _dbConnection.QueryAsync<BuscarClientePorIdResponse>(
-            //   @"SELECT c.nome AS Nome, c.data_nascimento AS Nascimento, c.rg AS Rg, c.Cpf AS Cpf, c.Cnh AS Cnh,
-            //    c.vencimento_cnh AS VencimentoCnh, c.whatsapp AS WhatsApp, c.email AS Email, c.data_notificacao AS UltimaNotificacao, c.ativo AS Ativo,
-            //    Endereco.id AS Id, Endereco.cliente_id AS ClienteId, Endereco.tipo_logradouro AS TipoLogradouro, Endereco.logradouro AS Logradouro,
-            //    Endereco.numero AS Numero, Endereco.complemento AS Complemento, Endereco.cep AS Cep, Endereco.bairro AS Bairro,
-            //    Exame.id As Id, Exame.cliente_id AS ClienteId, Exame.data_realizado AS DataRealizado, Exame.data_vencimento AS DataVencimento, Exame.motivo_exame AS MotivoExame
-            //    FROM toxiclab.clientes AS c, toxiclab.enderecos AS ende, toxiclab.exames AS ex
-            //    INNER JOIN toxiclab.enderecos AS Endereco ON e.cliente_id = c.id
-            //    INNER JOIN toxiclab.exames AS Exame ON ex.cliente_id = c.id
-            //    WHERE c.id = id;");
+            ClienteResponse cliente = await _dbConnection.QueryFirstOrDefaultAsync<ClienteResponse>(query, new { identificador = id });
+            var aux = await _dbConnection.QueryAsync<Exame>(query2, new { identificador = id });
 
-            return aux.ToList();
+            BuscarClientePorIdResponse response = new BuscarClientePorIdResponse() { Cliente = cliente, Exames = aux.ToList() };
+
+
+            return response;
         }
     }
 
-    public class BuscarClientePorIdResponse
+    public class ClienteResponse
     {
+        public string Id { get; set; }
         public string Nome { get; set; }
         public DateTime DataNascimento { get; set; } //Alterado de DateOnly para string - Conversao no construtor
-        public string Rg { get; set; }
+        public string NumeroCustodia { get; set; }
         public string Cpf { get; set; }
         public string Cnh { get; set; }
         public DateTime VencimentoCnh { get; set; } //Alterado de DateOnly para string - Conversao no construtor
         public string WhatsApp { get; set; }
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public DateTime UltimaNotificacao { get; set; } //Alterado de DateOnly para string - Conversao no construtor
         public bool Ativo { get; set; }
-        //public Endereco Endereco { get; set; }
-       // public List<Exame> Exames { get; set; }
+        public string EnderecoId { get; set; }
+        public string TipoLogradouro { get; set; }
+        public string Logradouro { get; set; }
+        public string Numero { get; set; }
+        public string Complemento { get; set; }
+        public string Cep { get; set; }
+        public string Bairro { get; set; }
+    }
+      
+
+    public class BuscarClientePorIdResponse
+    {
+        public ClienteResponse Cliente { get; set; }
+        public List<Exame> Exames { get; set; }
+
     }
 }

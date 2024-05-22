@@ -12,7 +12,7 @@ namespace ToxicLab.CasosDeUso.Clientes
         public string Nome { get; set; }
         public string Nascimento { get; set; } //Alterado de DateOnly para string - Conversao no construtor
         public Endereco Endereco { get; set; }
-        public string Rg { get; set; }
+        public string NumeroCustodia { get; set; }
         public string Cpf { get; set; }
         public string Cnh { get; set; }
         public string VencimentoCnh { get; set; } //Alterado de DateOnly para string - Conversao no construtor
@@ -34,7 +34,7 @@ namespace ToxicLab.CasosDeUso.Clientes
 
         public async Task<AdicionarClienteResponse> Handle(AdicionarClienteRequest request)
         {
-            Cliente cliente = new Cliente(request.Nome, DateOnly.ParseExact(request.Nascimento, "yyyy-MM-dd"), request.Endereco, request.Rg, request.Cpf, request.Cnh, DateOnly.ParseExact(request.VencimentoCnh, "yyyy-MM-dd"),
+            Cliente cliente = new Cliente(request.Nome, DateOnly.ParseExact(request.Nascimento, "yyyy-MM-dd"), request.Endereco, request.NumeroCustodia, request.Cpf, request.Cnh, DateOnly.ParseExact(request.VencimentoCnh, "yyyy-MM-dd"),
             request.WhatsApp, request.Email, DateOnly.ParseExact(request.DataNotificacao, "yyyy-MM-dd"), request.Ativo);
 
             await _context.clientes.AddAsync(cliente);

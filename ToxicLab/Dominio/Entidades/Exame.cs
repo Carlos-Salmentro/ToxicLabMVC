@@ -17,10 +17,10 @@ namespace ToxicLab.Dominio.Entidades
         public int ClienteId { get; set; }
         [Column("data_realizado")]
         [Required]
-        public DateOnly DataRealizado { get; set; }
+        public DateTime DataRealizado { get; set; }
         [Column("data_vencimento")]
         [Required]
-        public DateOnly DataVencimento { get; set; }
+        public DateTime DataVencimento { get; set; }
         [Column("motivo_exame")]
         [Required]
         public MotivoExame MotivoExame { get; set; }
@@ -30,7 +30,7 @@ namespace ToxicLab.Dominio.Entidades
 
         public Exame() { }
         
-        public Exame(int clienteId, DateOnly dataRealizado, DateOnly dataVencimento, MotivoExame motivoExame, bool ativo)
+        public Exame(int clienteId, DateTime dataRealizado, DateTime dataVencimento, MotivoExame motivoExame, bool ativo)
         {
             ClienteId = clienteId;
             DataRealizado = dataRealizado;

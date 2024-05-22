@@ -22,9 +22,9 @@ namespace ToxicLab.Dominio.Entidades
         [Column("endereco")]
         [Required]
         public Endereco Endereco { get; set;}
-        [Column("rg")]
+        [Column("numero_custodia")]
         [Required]
-        public string Rg { get; set; }
+        public string NumeroCustodia { get; set; }
         [Column("cpf")]
         [Required]
         public string Cpf { get; set; }
@@ -47,12 +47,12 @@ namespace ToxicLab.Dominio.Entidades
         [Required]
         public bool Ativo { get; set; }
 
-        public Cliente(string nome, DateOnly nascimento, Endereco endereco, string rg, string cpf, string cnh, DateOnly vencimentoCnh, string whatsApp, string email, DateOnly dataNotificacao, bool ativo)
+        public Cliente(string nome, DateOnly nascimento, Endereco endereco, string numeroCustodia, string cpf, string cnh, DateOnly vencimentoCnh, string whatsApp, string email, DateOnly dataNotificacao, bool ativo)
         {
             Nome = nome;
             Nascimento = nascimento;
             Endereco = endereco;
-            Rg = rg;
+            NumeroCustodia = numeroCustodia;
             Cpf = cpf;
             Cnh = cnh;
             VencimentoCnh = vencimentoCnh;
