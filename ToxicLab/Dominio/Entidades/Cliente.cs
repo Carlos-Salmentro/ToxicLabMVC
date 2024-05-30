@@ -38,7 +38,6 @@ namespace ToxicLab.Dominio.Entidades
         [Required]
         public string WhatsApp { get; set; }
         [Column("email")]
-        [Required]
         public string Email { get; set; }
         [Column("data_notificacao")]
         [Required]

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using ToxicLab.CasosDeUso.Clientes;
 using ToxicLab.InfraEstrutura.Repositorio;
 
@@ -6,7 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //Para trabalhar com controllers
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 
 builder.Services.AddScoped<AdicionarClienteHandler>();
 builder.Services.AddScoped<DeletarClienteHandler>();

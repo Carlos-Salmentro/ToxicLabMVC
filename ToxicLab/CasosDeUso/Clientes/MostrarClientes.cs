@@ -4,6 +4,7 @@ using Dapper;
 using System.Security.Cryptography.X509Certificates;
 using System.Data.SqlClient;
 using MySqlConnector;
+using System.Text.Json.Serialization;
 
 namespace ToxicLab.CasosDeUso.Clientes
 {

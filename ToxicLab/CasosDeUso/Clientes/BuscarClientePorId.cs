@@ -37,10 +37,10 @@ namespace ToxicLab.CasosDeUso.Clientes
                             FROM toxiclab.exames AS e
                             WHERE e.cliente_id = @identificador ";
 
-            
+
 
             ClienteResponse cliente = await _dbConnection.QueryFirstOrDefaultAsync<ClienteResponse>(query, new { identificador = id });
-            var aux = await _dbConnection.QueryAsync<Exame>(query2, new { identificador = id });
+            List<Exame> aux = new List<Exame>(await _dbConnection.QueryAsync<Exame>(query2, new { identificador = id }));
 
             BuscarClientePorIdResponse response = new BuscarClientePorIdResponse() { Cliente = cliente, Exames = aux.ToList() };
 
@@ -57,10 +57,10 @@ namespace ToxicLab.CasosDeUso.Clientes
         public string NumeroCustodia { get; set; }
         public string Cpf { get; set; }
         public string Cnh { get; set; }
-        public DateTime VencimentoCnh { get; set; } //Alterado de DateOnly para string - Conversao no construtor
-        public string WhatsApp { get; set; }
+        public DateTime? VencimentoCnh { get; set; } //Alterado de DateOnly para string - Conversao no construtor
+        public string? WhatsApp { get; set; }
         public string? Email { get; set; }
-        public DateTime UltimaNotificacao { get; set; } //Alterado de DateOnly para string - Conversao no construtor
+        public DateTime? UltimaNotificacao { get; set; } //Alterado de DateOnly para string - Conversao no construtor
         public bool Ativo { get; set; }
         public string EnderecoId { get; set; }
         public string TipoLogradouro { get; set; }
@@ -70,7 +70,7 @@ namespace ToxicLab.CasosDeUso.Clientes
         public string Cep { get; set; }
         public string Bairro { get; set; }
     }
-      
+
 
     public class BuscarClientePorIdResponse
     {
