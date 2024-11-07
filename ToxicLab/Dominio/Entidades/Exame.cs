@@ -27,16 +27,32 @@ namespace ToxicLab.Dominio.Entidades
         [Column("ativo")]
         [Required]
         public bool Ativo { get; set; }
+        [Column("valor_exame")]
+        [Required]
+        public double ValorExame { get; set; }
+        [Column("valor_repasse")]
+        [Required]
+        public double ValorRepasse { get; set; }
+        [Column("voucher")]
+        [Required]
+        public bool Voucher { get; set; }
+        [Column("valor_analise")]
+        [Required]
+        public double ValorAnalise { get; set; }
 
         public Exame() { }
-        
-        public Exame(int clienteId, DateTime dataRealizado, DateTime dataVencimento, MotivoExame motivoExame, bool ativo)
+
+        public Exame(int clienteId, DateTime dataRealizado, DateTime dataVencimento, MotivoExame motivoExame, bool ativo, double valorExame, double valorRepasse, bool voucher, double valorAnalise)
         {
             ClienteId = clienteId;
             DataRealizado = dataRealizado;
             DataVencimento = dataVencimento;
             MotivoExame = motivoExame;
             Ativo = ativo;
+            ValorExame = valorExame;
+            ValorRepasse = valorRepasse;
+            Voucher = voucher;
+            ValorAnalise = valorAnalise;
         }
     }
 }

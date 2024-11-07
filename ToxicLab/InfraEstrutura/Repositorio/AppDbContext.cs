@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Pomelo.EntityFrameworkCore;
 using ToxicLab.Dominio.Entidades;
+using ToxicLab.Dominio.ObjetosDeValor;
 
 namespace ToxicLab.InfraEstrutura.Repositorio
 {
@@ -12,6 +13,7 @@ namespace ToxicLab.InfraEstrutura.Repositorio
         public DbSet<Cliente> clientes { get; set; }
         public DbSet<Endereco> enderecos { get; set; }
         public DbSet<Exame> exames { get; set; }
+        public DbSet<TabelaDePrecos> tabela_precos { get; set; }
 
 
 
