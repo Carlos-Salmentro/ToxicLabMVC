@@ -20,7 +20,6 @@ namespace ToxicLab.Controllers
         private readonly AdicionarExameClienteHandler _adicionarExameClienteHandler;
        
 
-
         public ClientesController(AdicionarClienteHandler adicionarClienteHandler, MostrarClientesHandler _mostrarClientes, DeletarClienteHandler _deletarClienteHandler, BuscarClientePorIdHandler buscarClientePorIdHandler, AdicionarExameClienteHandler adicionarExameClienteHandler)
         {
             this._adicionarClienteHandler = adicionarClienteHandler;

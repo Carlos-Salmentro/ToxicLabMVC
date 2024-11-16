@@ -1,0 +1,97 @@
+﻿@model ClientesModel
+@{
+    ViewData["Title"] = "Adicionar Cliente";
+}
+
+<h3>Adicionar Cliente</h3>
+<form asp-controller="ClientesController" asp-action="AdicionarCliente" class="row g-3">
+    <div class="col-md-10">
+        <label for="Nome Completo" class="form-label">Nome</label>
+        <input type="text" asp-for="Nome" class="form-control" id="nome" placeholder="Digite o nome Completo">
+    </div>
+    
+    <div class="col-md-2">
+        <label for="Data Nascimento" class="form-label">Data de Nascimento</label>
+        <input type="date" asp-for="Nascimento" class="form-control" id="DataNascimento">
+    </div>
+
+
+    <! ENDEREÇO >
+    <div class="col-md-2">
+        <label for="TipoLogradouro" class="form-label">Tipo Logradouro</label>
+        <select asp-for="Endereco.TipoLogradouro" class="form-select form-control" aria-label="Small select example">
+            <option>Selecione tipo logradouro</option>
+            @foreach(var x in Model.TiposLogradouros)
+            {
+                <option value="@x.Value">@x.Name</option>
+            }
+        </select>
+    </div>
+    
+    <div class="col-md-8">
+        <label for="Logradouro" class="form-label">Endereço</label>
+        <input type="text" asp-for="Endereco.Logradouro" class="form-control" name="Logradouro" placeholder="Digite o endereço">
+    </div>
+
+    <div class="col-md-2">
+        <label for="Numero" class="form-label">Número</label>
+        <input type="text" asp-for="Endereco.Numero" class="form-control" name="Numero" placeholder="Número">
+    </div>
+
+
+    <div class="col-md-3">
+        <label for="Complemento" class="form-label">Complemento</label>
+        <input type="text" asp-for="Endereco.Complemento" class="form-control" name="Complemento" placeholder="Complemento">
+    </div>
+    
+    <div class="col-md-2">
+        <label for="CEP" class="form-label">CEP</label>
+        <input type="text" asp-for="Endereco.Cep" class="form-control" name="CEP" placeholder="CEP">
+    </div>
+
+    <div class="col-md-7">
+        <label for="Bairro" class="form-label">Bairro</label>
+        <input type="text" asp-for="Endereco.Bairro" class="form-control" name="Bairro" placeholder="Bairro">
+    </div>
+
+   <div class="col-md-5">
+       <label for="NumeroCNH" class="form-label">Número CNH</label>
+       <input type="text" asp-for="Cnh" class="form-control" name="NumeroCNH" placeholder="CNH n.°"/>
+   </div>
+
+    <div class="col-md-2">
+        <label for="VencimentoCNH" class="form-label">Venc. CNH</label>
+        <input type="date" asp-for="VencimentoCnh" class="form-control" name="VencimentoCNH" placeholder="CNH Venc."/>
+    </div>
+
+    <div class="col-md-5">
+        <label for="CPF" class="form-label">CPF</label>
+        <input type="text" asp-for="Cpf" class="form-control" name="CPF" placeholder="CPF n.°"/>
+    </div>
+
+    <div class="col-md-4">
+        <label for="WhatsApp" class="form-label">WhatsApp</label>
+        <input type="text" asp-for="WhatsApp" class="form-control" name="WhatsApp" placeholder="Whatsapp" />
+    </div>
+
+    <div class="col-md-8">
+        <label for="EMail" class="form-label">E-Mail</label>
+        <input type="email" asp-for="Email" name="EMail" class="form-control" placeholder="exemplo&#64.com.br" />
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </div>
+</form>
+
+        public string Nome { get; set; }
+        public string Nascimento { get; set; } //Alterado de DateOnly para string - Conversao no construtor
+        public Endereco Endereco { get; set; }
+        public string NumeroCustodia { get; set; }
+        public string Cpf { get; set; }
+        public string Cnh { get; set; }
+        public string VencimentoCnh { get; set; } //Alterado de DateOnly para string - Conversao no construtor
+        public string WhatsApp { get; set; }
+        public string Email { get; set; }
+        public string DataNotificacao { get; set; } //Alterado de DateOnly para string - Conversao no construtor
+        public bool Ativo { get; set; }
+ 
