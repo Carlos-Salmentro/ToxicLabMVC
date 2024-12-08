@@ -88,8 +88,9 @@ namespace ToxiLabMVC.Controllers
             }
 
             ClientesModel clientesModel = new ClientesModel();
+
             clientesModel.Nome = cliente.Nome;
-            clientesModel.Nascimento = cliente.Nascimento;
+            clientesModel.Nascimento = cliente.Nascimento.ToString("dd-MM-yyyy");
             clientesModel.TipoLogradouro = cliente.Endereco.TipoLogradouro;
             clientesModel.Logradouro = cliente.Endereco.Logradouro;
             clientesModel.Numero = cliente.Endereco.Numero;
@@ -97,7 +98,7 @@ namespace ToxiLabMVC.Controllers
             clientesModel.Bairro = cliente.Endereco.Bairro;
             clientesModel.CEP = cliente.Endereco.Cep;
             clientesModel.Cnh = cliente.Cnh;
-            clientesModel.VencimentoCnh = cliente.VencimentoCnh;
+            clientesModel.VencimentoCnh = cliente.VencimentoCnh.ToString("dd-MM-yyyy");
             clientesModel.Cpf = cliente.Cpf;
             clientesModel.DDD = cliente.WhatsApp.Substring(1, 2);
             clientesModel.WhatsApp = cliente.WhatsApp.Substring(3, cliente.WhatsApp.Length - 2);
@@ -116,7 +117,7 @@ namespace ToxiLabMVC.Controllers
 
             ClientesModel clientesModel = new ClientesModel();
             clientesModel.Nome = cliente.Nome;
-            clientesModel.Nascimento = cliente.Nascimento;
+            clientesModel.Nascimento = cliente.Nascimento.ToString("dd-MM-yyyy");
             clientesModel.TipoLogradouro = cliente.Endereco.TipoLogradouro;
             clientesModel.Logradouro = cliente.Endereco.Logradouro;
             clientesModel.Numero = cliente.Endereco.Numero;
@@ -124,7 +125,7 @@ namespace ToxiLabMVC.Controllers
             clientesModel.Bairro = cliente.Endereco.Bairro;
             clientesModel.CEP = cliente.Endereco.Cep;
             clientesModel.Cnh = cliente.Cnh;
-            clientesModel.VencimentoCnh = cliente.VencimentoCnh;
+            clientesModel.VencimentoCnh = cliente.VencimentoCnh.ToString("dd-MM-yyyy");
             clientesModel.Cpf = cliente.Cpf;
             clientesModel.DDD = cliente.WhatsApp.Substring(1, 2);
             clientesModel.WhatsApp = cliente.WhatsApp.Substring(3, cliente.WhatsApp.Length - 2);
@@ -142,7 +143,7 @@ namespace ToxiLabMVC.Controllers
             ClientesModel clientesModel = new ClientesModel();
 
             clientesModel.Nome = cliente.Nome;
-            clientesModel.Nascimento = cliente.Nascimento;
+            clientesModel.Nascimento = cliente.Nascimento.ToString("dd-MM-yyyy");
             clientesModel.TipoLogradouro = cliente.Endereco.TipoLogradouro;
             clientesModel.Logradouro = cliente.Endereco.Logradouro;
             clientesModel.Numero = cliente.Endereco.Numero;
@@ -150,7 +151,7 @@ namespace ToxiLabMVC.Controllers
             clientesModel.Bairro = cliente.Endereco.Bairro;
             clientesModel.CEP = cliente.Endereco.Cep;
             clientesModel.Cnh = cliente.Cnh;
-            clientesModel.VencimentoCnh = cliente.VencimentoCnh;
+            clientesModel.VencimentoCnh = cliente.VencimentoCnh.ToString("dd-MM-yyyy");
             clientesModel.Cpf = cliente.Cpf;
             clientesModel.DDD = cliente.WhatsApp.Substring(1, 2);
             clientesModel.WhatsApp = cliente.WhatsApp.Substring(3, cliente.WhatsApp.Length - 2);
