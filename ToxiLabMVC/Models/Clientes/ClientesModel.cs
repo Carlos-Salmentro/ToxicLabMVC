@@ -12,13 +12,21 @@ public class ClientesModel
     public int? Id { get; set; }
     public string Nome { get; set; }
     public DateOnly Nascimento { get; set; }
-    public Endereco Endereco { get; set; } = new Endereco();
+    public int TipoLogradouro { get; set; }
+    public string Logradouro { get; set; }
+    public string Numero { get; set; }
+    public string Complemento { get; set; }
+    public string CEP { get; set; }
+    public string Bairro { get; set; }
     public string NumeroCustodia { get; set; }
     public string Cpf { get; set; }
     public string Cnh { get; set; }
     public DateOnly VencimentoCnh { get; set; }
+    public string DDD { get; set; }
     public string WhatsApp { get; set; }
     public string? Email { get; set; }
-    public DateOnly? DataNotificacao { get; set; }
+    public DateOnly DataNotificacao { get; set; }
     public bool Ativo { get; set; }
+    public List<Exame> Exames { get; set; }
+    public List<Cliente>? Clientes { get; set; } = new List<Cliente>(); 
 }

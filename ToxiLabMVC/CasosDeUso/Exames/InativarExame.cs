@@ -23,7 +23,7 @@ namespace ToxicLabMVC.CasosDeUso.Exames
 
             public async Task<InativarExameResponse> Handle(InativarExameRequest request)
             {
-                Exame exame = await _context.exames.FirstOrDefaultAsync(x => x.Id == request.Id);
+                Exame exame = await _context.exames.FirstOrDefaultAsync(x => x.ExameId == request.Id);
                 exame.Ativo = false;
 
                 _context.SaveChanges();

@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ToxicLabMVC.Migrations
+namespace ToxiLabMVC.Migrations
 {
-    public partial class primeira : Migration
+    /// <inheritdoc />
+    public partial class first : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
@@ -22,7 +24,7 @@ namespace ToxicLabMVC.Migrations
                     nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     data_nascimento = table.Column<DateOnly>(type: "date", nullable: false),
-                    rg = table.Column<string>(type: "longtext", nullable: false)
+                    numero_custodia = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     cpf = table.Column<string>(type: "char(11)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -32,29 +34,13 @@ namespace ToxicLabMVC.Migrations
                     whatsapp = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     email = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_clientes", x => x.id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "exames",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Cliente_Id = table.Column<int>(type: "int", nullable: false),
-                    data_realizado = table.Column<DateOnly>(type: "date", nullable: false),
-                    data_vencimento = table.Column<DateOnly>(type: "date", nullable: false),
-                    motivo_exame = table.Column<int>(type: "int", nullable: false),
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    data_notificacao = table.Column<DateOnly>(type: "date", nullable: true),
                     ativo = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_exames", x => x.id);
+                    table.PrimaryKey("PK_clientes", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -70,7 +56,7 @@ namespace ToxicLabMVC.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     numero = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    complemento = table.Column<string>(type: "longtext", nullable: false)
+                    complemento = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     cep = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -89,13 +75,47 @@ namespace ToxicLabMVC.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "exames",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    cliente_id = table.Column<int>(type: "int", nullable: false),
+                    data_realizado = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    data_vencimento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    motivo_exame = table.Column<int>(type: "int", nullable: false),
+                    ativo = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    valor_exame = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    valor_repasse = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    voucher = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    valor_analise = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_exames", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_exames_clientes_cliente_id",
+                        column: x => x.cliente_id,
+                        principalTable: "clientes",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_enderecos_cliente_id",
                 table: "enderecos",
                 column: "cliente_id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_exames_cliente_id",
+                table: "exames",
+                column: "cliente_id");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

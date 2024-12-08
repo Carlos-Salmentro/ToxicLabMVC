@@ -34,13 +34,14 @@ namespace ToxicLabMVC.CasosDeUso.Clientes
 
         public async Task<AdicionarClienteResponse> Handle(AdicionarClienteRequest request)
         {
-            Cliente cliente = new Cliente(request.Nome, DateOnly.ParseExact(request.Nascimento, "yyyy-MM-dd"), request.Endereco, request.NumeroCustodia, request.Cpf, request.Cnh, DateOnly.ParseExact(request.VencimentoCnh, "yyyy-MM-dd"),
-            request.WhatsApp, request.Email, DateOnly.ParseExact(request.DataNotificacao, "yyyy-MM-dd"), request.Ativo);
+            Cliente cliente = new Cliente(request.Nome, DateOnly.ParseExact(request.Nascimento, "yyyy-MM-dd"), request.NumeroCustodia, request.Cpf, request.Cnh, 
+                DateOnly.ParseExact(request.VencimentoCnh, "yyyy-MM-dd"), request.Endereco, request.WhatsApp, request.Email, 
+                DateOnly.ParseExact(request.DataNotificacao, "yyyy-MM-dd"), request.Ativo);
 
             await _context.clientes.AddAsync(cliente);
             await _context.SaveChangesAsync();
 
-            return new AdicionarClienteResponse(cliente.Id);
+            return new AdicionarClienteResponse(cliente.ClienteId);
         }
     }
 

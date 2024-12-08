@@ -14,10 +14,10 @@ namespace ToxicLabMVC.CasosDeUso.Exames
         public DateTime DataVencimento { get; set; }
         public MotivoExame MotivoExame { get; set; }
         public bool Ativo { get; set; }
-        public double ValorExame { get; set; }
-        public double ValorRepasse { get; set; }
+        public decimal ValorExame { get; set; }
+        public decimal ValorRepasse { get; set; }
         public bool Voucher { get; set; }
-        public double ValorAnalise { get; set; }
+        public decimal ValorAnalise { get; set; }
     }
 
     public class AdicionarExameClienteHandler
@@ -45,7 +45,7 @@ namespace ToxicLabMVC.CasosDeUso.Exames
             //inativar penultimo exame
             await _context.SaveChangesAsync();
 
-            return new AdicionarExameClienteResponse(exame.Id, exame.ClienteId);
+            return new AdicionarExameClienteResponse(exame.ExameId, exame.ClienteId);
         }
     }
 

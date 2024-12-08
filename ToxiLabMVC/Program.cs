@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using ToxicLabMVC.InfraEstrutura.Repositorio;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var stringConexao = builder.Configuration.GetConnectionString("ToxicLabString");
-    options.UseMySql(ServerVersion.AutoDetect(stringConexao));
+    options.UseMySql(stringConexao, ServerVersion.AutoDetect(stringConexao));
 }
 );
 

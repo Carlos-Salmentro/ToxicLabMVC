@@ -10,10 +10,10 @@ namespace ToxicLabMVC.Dominio.Entidades
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         [Column("id")]
-        public int Id { get; set; }
-        [Column("cliente_id")]
-        [ForeignKey("cliente_id")]
+        public int ExameId { get; set; }
+        [ForeignKey("Cliente")]
         [Required]
+        [Column("cliente_id")]
         public int ClienteId { get; set; }
         [Column("data_realizado")]
         [Required]
@@ -29,20 +29,20 @@ namespace ToxicLabMVC.Dominio.Entidades
         public bool Ativo { get; set; }
         [Column("valor_exame")]
         [Required]
-        public double ValorExame { get; set; }
+        public decimal ValorExame { get; set; }
         [Column("valor_repasse")]
         [Required]
-        public double ValorRepasse { get; set; }
+        public decimal ValorRepasse { get; set; }
         [Column("voucher")]
         [Required]
         public bool Voucher { get; set; }
         [Column("valor_analise")]
         [Required]
-        public double ValorAnalise { get; set; }
+        public decimal ValorAnalise { get; set; }
 
         public Exame() { }
 
-        public Exame(int clienteId, DateTime dataRealizado, DateTime dataVencimento, MotivoExame motivoExame, bool ativo, double valorExame, double valorRepasse, bool voucher, double valorAnalise)
+        public Exame(int clienteId, DateTime dataRealizado, DateTime dataVencimento, MotivoExame motivoExame, bool ativo, decimal valorExame, decimal valorRepasse, bool voucher, decimal valorAnalise)
         {
             ClienteId = clienteId;
             DataRealizado = dataRealizado;

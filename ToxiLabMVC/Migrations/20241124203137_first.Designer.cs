@@ -2,31 +2,41 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToxicLabMVC.InfraEstrutura.Repositorio;
 
 #nullable disable
 
-namespace ToxicLabMVC.Migrations
+namespace ToxiLabMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240424201200_primeira")]
-    partial class primeira
+    [Migration("20241124203137_first")]
+    partial class first
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.29")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("ToxicLabMVC.Dominio.Entidades.Cliente", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ClienteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ClienteId"));
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("ativo");
 
                     b.Property<string>("Cnh")
                         .IsRequired()
@@ -37,6 +47,10 @@ namespace ToxicLabMVC.Migrations
                         .IsRequired()
                         .HasColumnType("char(11)")
                         .HasColumnName("cpf");
+
+                    b.Property<DateOnly?>("DataNotificacao")
+                        .HasColumnType("date")
+                        .HasColumnName("data_notificacao");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -53,10 +67,10 @@ namespace ToxicLabMVC.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("nome");
 
-                    b.Property<string>("Rg")
+                    b.Property<string>("NumeroCustodia")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("rg");
+                        .HasColumnName("numero_custodia");
 
                     b.Property<DateOnly>("VencimentoCnh")
                         .HasColumnType("date")
@@ -67,17 +81,19 @@ namespace ToxicLabMVC.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("whatsapp");
 
-                    b.HasKey("Id");
+                    b.HasKey("ClienteId");
 
                     b.ToTable("clientes");
                 });
 
             modelBuilder.Entity("ToxicLabMVC.Dominio.Entidades.Endereco", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("EnderecoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("EnderecoId"));
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -94,7 +110,6 @@ namespace ToxicLabMVC.Migrations
                         .HasColumnName("cliente_id");
 
                     b.Property<string>("Complemento")
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("complemento");
 
@@ -108,11 +123,11 @@ namespace ToxicLabMVC.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("numero");
 
-                    b.Property<int>("TiposLogradouro")
+                    b.Property<int>("TipoLogradouro")
                         .HasColumnType("int")
                         .HasColumnName("tipo_logradouro");
 
-                    b.HasKey("Id");
+                    b.HasKey("EnderecoId");
 
                     b.HasIndex("ClienteId")
                         .IsUnique();
@@ -122,40 +137,72 @@ namespace ToxicLabMVC.Migrations
 
             modelBuilder.Entity("ToxicLabMVC.Dominio.Entidades.Exame", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ExameId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ExameId"));
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("ativo");
 
-                    b.Property<int>("Cliente_Id")
-                        .HasColumnType("int");
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int")
+                        .HasColumnName("cliente_id");
 
-                    b.Property<DateOnly>("DataRealizado")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("DataRealizado")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("data_realizado");
 
-                    b.Property<DateOnly>("DataVencimento")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("DataVencimento")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("data_vencimento");
 
                     b.Property<int>("MotivoExame")
                         .HasColumnType("int")
                         .HasColumnName("motivo_exame");
 
-                    b.HasKey("Id");
+                    b.Property<decimal>("ValorAnalise")
+                        .HasColumnType("decimal(65,30)")
+                        .HasColumnName("valor_analise");
+
+                    b.Property<decimal>("ValorExame")
+                        .HasColumnType("decimal(65,30)")
+                        .HasColumnName("valor_exame");
+
+                    b.Property<decimal>("ValorRepasse")
+                        .HasColumnType("decimal(65,30)")
+                        .HasColumnName("valor_repasse");
+
+                    b.Property<bool>("Voucher")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("voucher");
+
+                    b.HasKey("ExameId");
+
+                    b.HasIndex("ClienteId");
 
                     b.ToTable("exames");
                 });
 
             modelBuilder.Entity("ToxicLabMVC.Dominio.Entidades.Endereco", b =>
                 {
-                    b.HasOne("ToxicLabMVC.Dominio.Entidades.Cliente", null)
+                    b.HasOne("ToxicLabMVC.Dominio.Entidades.Cliente", "Cliente")
                         .WithOne("Endereco")
                         .HasForeignKey("ToxicLabMVC.Dominio.Entidades.Endereco", "ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("ToxicLabMVC.Dominio.Entidades.Exame", b =>
+                {
+                    b.HasOne("ToxicLabMVC.Dominio.Entidades.Cliente", null)
+                        .WithMany("Exames")
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -164,6 +211,8 @@ namespace ToxicLabMVC.Migrations
                 {
                     b.Navigation("Endereco")
                         .IsRequired();
+
+                    b.Navigation("Exames");
                 });
 #pragma warning restore 612, 618
         }

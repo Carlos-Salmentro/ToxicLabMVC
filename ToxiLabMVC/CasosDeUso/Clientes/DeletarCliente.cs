@@ -21,7 +21,7 @@ namespace ToxicLabMVC.CasosDeUso.Clientes
 
         public async Task<DeletarClienteResponse> Handle(int id)
         {
-            Cliente cliente = await _context.clientes.FirstOrDefaultAsync(x => x.Id == id);
+            Cliente cliente = await _context.clientes.FirstOrDefaultAsync(x => x.ClienteId == id);
             cliente.Ativo = false;
 
             _context.SaveChangesAsync();

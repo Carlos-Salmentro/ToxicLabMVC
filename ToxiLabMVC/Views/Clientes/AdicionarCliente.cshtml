@@ -1,26 +1,26 @@
 ﻿@model ClientesModel
 @{
-    ViewData["Title"] = "Adicionar Cliente";
+    ViewData["Title"] = "Cadastrar Cliente";
 }
 
-<h3>Adicionar Cliente</h3>
-<form asp-controller="ClientesController" asp-action="AdicionarCliente" class="row g-3">
+<h3>Cadastrar Cliente</h3>
+<form asp-controller="Clientes" asp-action="AdicionarCliente" class="row g-3" method="post">
     <div class="col-md-10">
         <label for="Nome Completo" class="form-label">Nome</label>
-        <input type="text" asp-for="Nome" class="form-control" id="nome" placeholder="Digite o nome Completo">
+        <input type="text" asp-for="Nome" class="form-control" id="nome" placeholder="Digite o nome Completo" required="true">
     </div>
     
     <div class="col-md-2">
         <label for="Data Nascimento" class="form-label">Data de Nascimento</label>
-        <input type="date" asp-for="Nascimento" class="form-control" id="DataNascimento">
+        <input type="date" asp-for="Nascimento" class="form-control" id="DataNascimento" value="" required="true">
     </div>
 
 
     <! ENDEREÇO >
     <div class="col-md-2">
         <label for="TipoLogradouro" class="form-label">Tipo Logradouro</label>
-        <select asp-for="Endereco.TipoLogradouro" class="form-select form-control" aria-label="Small select example">
-            <option>Selecione tipo logradouro</option>
+        <select asp-for="TipoLogradouro" name="TipoLogradouro" class="form-select form-control" aria-label="Small select example" required="true" name="TipoLogradouro">
+            <option>Selecione</option>
             @foreach(var x in Model.TiposLogradouros)
             {
                 <option value="@x.Value">@x.Name</option>
@@ -30,68 +30,64 @@
     
     <div class="col-md-8">
         <label for="Logradouro" class="form-label">Endereço</label>
-        <input type="text" asp-for="Endereco.Logradouro" class="form-control" name="Logradouro" placeholder="Digite o endereço">
+        <input type="text" asp-for="Logradouro" name="Logradouro" class="form-control" placeholder="Digite o endereço" required="true">
     </div>
 
     <div class="col-md-2">
         <label for="Numero" class="form-label">Número</label>
-        <input type="text" asp-for="Endereco.Numero" class="form-control" name="Numero" placeholder="Número">
+        <input type="text" asp-for="Numero" name="Numero" class="form-control" placeholder="Número" required="true">
     </div>
 
 
     <div class="col-md-3">
         <label for="Complemento" class="form-label">Complemento</label>
-        <input type="text" asp-for="Endereco.Complemento" class="form-control" name="Complemento" placeholder="Complemento">
+        <input type="text" asp-for="Complemento" name="Complemento" class="form-control" placeholder="Complemento">
     </div>
     
     <div class="col-md-2">
         <label for="CEP" class="form-label">CEP</label>
-        <input type="text" asp-for="Endereco.Cep" class="form-control" name="CEP" placeholder="CEP">
+        <input type="text" asp-for="CEP" name="CEP" class="form-control" placeholder="CEP" required="true">
     </div>
 
     <div class="col-md-7">
         <label for="Bairro" class="form-label">Bairro</label>
-        <input type="text" asp-for="Endereco.Bairro" class="form-control" name="Bairro" placeholder="Bairro">
+        <input type="text" asp-for="Bairro" name="Bairro" class="form-control" placeholder="Bairro" required="true">
     </div>
 
-   <div class="col-md-5">
-       <label for="NumeroCNH" class="form-label">Número CNH</label>
-       <input type="text" asp-for="Cnh" class="form-control" name="NumeroCNH" placeholder="CNH n.°"/>
+   <div class="col-md-3">
+       <label for="Cnh" class="form-label">Número CNH</label>
+        <input type="text" asp-for="Cnh" class="form-control" name="Cnh" placeholder="CNH n.°" required="true" />
    </div>
 
     <div class="col-md-2">
         <label for="VencimentoCNH" class="form-label">Venc. CNH</label>
-        <input type="date" asp-for="VencimentoCnh" class="form-control" name="VencimentoCNH" placeholder="CNH Venc."/>
+        <input type="date" asp-for="VencimentoCnh" class="form-control" name="VencimentoCNH" placeholder="CNH Venc." value="" required="true" />
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-3">
         <label for="CPF" class="form-label">CPF</label>
-        <input type="text" asp-for="Cpf" class="form-control" name="CPF" placeholder="CPF n.°"/>
+        <input type="text" asp-for="Cpf" class="form-control" name="CPF" placeholder="CPF n.°" required="true" />
     </div>
 
     <div class="col-md-4">
+        <label for="NumeroCustodia" class="form-label">N.° Custódia</label>
+        <input type="text" asp-for="NumeroCustodia" class="form-control" name="NumeroCustodia" required="true" placeholder="Número Custódia" />
+    </div>
+
+    <div class="col-md-1">
+        <label for="DDD" class="form-label">DDD</label>
+        <input type="text" asp-for="DDD" class="form-control" name="DDD" placeholder="(XX)" required="true" />
+    </div>
+    <div class="col-md-3">
         <label for="WhatsApp" class="form-label">WhatsApp</label>
-        <input type="text" asp-for="WhatsApp" class="form-control" name="WhatsApp" placeholder="Whatsapp" />
+        <input type="text" asp-for="WhatsApp" class="form-control" name="WhatsApp" placeholder="Whatsapp" required="true" />
     </div>
 
     <div class="col-md-8">
-        <label for="EMail" class="form-label">E-Mail</label>
-        <input type="email" asp-for="Email" name="EMail" class="form-control" placeholder="exemplo&#64.com.br" />
+        <label for="Email" class="form-label">E-Mail</label>
+        <input type="email" asp-for="Email" name="Email" class="form-control" placeholder="exemplo&#64.com.br" required="false"/>
     </div>
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
-</form>
-
-        public string Nome { get; set; }
-        public string Nascimento { get; set; } //Alterado de DateOnly para string - Conversao no construtor
-        public Endereco Endereco { get; set; }
-        public string NumeroCustodia { get; set; }
-        public string Cpf { get; set; }
-        public string Cnh { get; set; }
-        public string VencimentoCnh { get; set; } //Alterado de DateOnly para string - Conversao no construtor
-        public string WhatsApp { get; set; }
-        public string Email { get; set; }
-        public string DataNotificacao { get; set; } //Alterado de DateOnly para string - Conversao no construtor
-        public bool Ativo { get; set; }
- 
+</form>     

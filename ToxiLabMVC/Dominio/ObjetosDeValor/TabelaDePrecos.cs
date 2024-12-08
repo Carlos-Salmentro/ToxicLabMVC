@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToxicLabMVC.Dominio.ObjetosDeValor
 {
@@ -6,12 +7,12 @@ namespace ToxicLabMVC.Dominio.ObjetosDeValor
     public class TabelaDePrecos
     {
         [Column("valor_exame")]
-        public double ValorExame;
+        public decimal ValorExame;
         [Column("valor_repasse")]
-        public double ValorRepasse;
+        public decimal ValorRepasse;
         [Column("valor_analise")]
         public double ValorAnalise;
         [Column("valor_voucher")]
-        public double ValorVoucher;
+        public decimal ValorVoucher;
     }
 }

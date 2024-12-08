@@ -1,6 +1,31 @@
-﻿@{
+﻿@model ClientesModel
+
+@{
     ViewData["Title"] = "Clientes";
 }
+<div>
+    <form asp-controller="Clientes" asp-action="BuscarCliente" method="post" class="row g-3">
+        <div class="col-md-3">
+            <label for="Cnh" class="form-label">Nº. CNH</label>
+            <input type="text" asp-for="Cnh" class="form-control" name="Cnh" placeholder="Nº CNH" />
+        </div>
+        <div class="col-md-3">
+            <label for="CPF" class="form-label">Nº. CPF</label>
+            <input type="text" asp-for="Cpf" class="form-control" name="Cpf" placeholder="Nº CPF" />
+        </div>
+        <div class="col-md-3">
+            <label for="Nome" class="form-label">Nome</label>
+            <input type="text" asp-for="Nome" class="form-control" name="Nome" placeholder="Nome" />
+        </div>
+
+        <div class="col-auto">
+            <label>""</label>
+            <a class="btn btn-info me-md-2" type="button" asp-controller="Clientes" asp-action="BuscarCliente">Buscar Cliente</a>
+        </div>
+
+    </form>
+</div>
+
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <a class="btn btn-primary me-md-2" type="button" asp-controller="Clientes" asp-action="AdicionarCliente">Adicionar Cliente</a>
 </div>
@@ -8,24 +33,29 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">CPF</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Contato</th>
                 <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Carlos</td>
-                <td>99999999</td>
-                <td>
-                    <div class="gap-2 col-6 mx-auto" style="gap:1rem">
-                        <button type="button" class="btn btn-outline-primary">Editar</button><button type="button" class="btn btn-outline-danger">Apagar</button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
+            @foreach (var x in Model.Clientes)
+            {
+                <tr>
+                    <th scope="row">@x.Cpf</th>
+                    <td>@x.Nome</td>
+                    <td>@x.WhatsApp</td>
+                    <td>
+                        <div class="gap-2 col-6 mx-auto" style="gap:1rem">
+                            <button type="button" class="btn btn-outline-primary">Editar</button><button type="button" class="btn btn-outline-danger">Apagar</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
     </table>
 
 </div>

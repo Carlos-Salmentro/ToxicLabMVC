@@ -12,16 +12,13 @@ namespace ToxicLabMVC.Dominio.Entidades
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         [Required]
-        public int Id { get; set; }
+        public int ClienteId { get; set; }
         [Column("nome")]    
         [Required]
         public string Nome { get; set; }
         [Column("data_nascimento")]
         [Required]
         public DateOnly Nascimento { get; set; }
-        [Column("endereco")]
-        [Required]
-        public Endereco Endereco { get; set;}
         [Column("numero_custodia")]
         [Required]
         public string NumeroCustodia { get; set; }
@@ -40,21 +37,22 @@ namespace ToxicLabMVC.Dominio.Entidades
         [Column("email")]
         public string Email { get; set; }
         [Column("data_notificacao")]
-        [Required]
         public DateOnly DataNotificacao { get; set ; }
         [Column("ativo")]
         [Required]
         public bool Ativo { get; set; }
+        public List<Exame> Exames { get; set; }
+        public Endereco Endereco { get; set; }
 
-        public Cliente(string nome, DateOnly nascimento, Endereco endereco, string numeroCustodia, string cpf, string cnh, DateOnly vencimentoCnh, string whatsApp, string email, DateOnly dataNotificacao, bool ativo)
+        public Cliente(string nome, DateOnly nascimento, string numeroCustodia, string cpf, string cnh, DateOnly vencimentoCnh, Endereco endereco, string whatsApp, string email, DateOnly dataNotificacao, bool ativo)
         {
             Nome = nome;
             Nascimento = nascimento;
-            Endereco = endereco;
             NumeroCustodia = numeroCustodia;
             Cpf = cpf;
             Cnh = cnh;
             VencimentoCnh = vencimentoCnh;
+            Endereco = endereco;
             WhatsApp = whatsApp;
             Email = email;
             Ativo = ativo;
@@ -67,7 +65,7 @@ namespace ToxicLabMVC.Dominio.Entidades
             {
                 DateTime now = DateTime.Now;
 
-                DataNotificacao = DateOnly.Parse(now.ToString());
+                DataNotificacao = DateOnly.FromDateTime(now);
             }
         }
 

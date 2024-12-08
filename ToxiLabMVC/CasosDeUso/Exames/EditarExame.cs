@@ -29,7 +29,7 @@ namespace ToxicLabMVC.CasosDeUso.Exames
 
             public async Task<EditarExameResponse> Handle(int id, int clienteId, DateTime dataRealizado, DateTime dataVencimento, MotivoExame motivo, bool ativo)
             {
-                Exame exame = await _context.exames.FirstOrDefaultAsync(x => x.Id == id);
+                Exame exame = await _context.exames.FirstOrDefaultAsync(x => x.ExameId == id);
 
                 if(exame == null)
                 {
@@ -44,7 +44,7 @@ namespace ToxicLabMVC.CasosDeUso.Exames
 
                 _context.SaveChangesAsync();
 
-                return new EditarExameResponse() { Id = exame.Id, ClienteId = exame.ClienteId, DataRealizado = exame.DataRealizado, DataVencimento = exame.DataVencimento, MotivoExame = exame.MotivoExame, Ativo = exame.Ativo };
+                return new EditarExameResponse() { Id = exame.ExameId, ClienteId = exame.ClienteId, DataRealizado = exame.DataRealizado, DataVencimento = exame.DataVencimento, MotivoExame = exame.MotivoExame, Ativo = exame.Ativo };
             }
         }
 
